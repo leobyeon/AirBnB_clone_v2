@@ -85,7 +85,7 @@ class HBNBCommand(cmd.Cmd):
         """Deletes an instance based on the class name and id
         Exceptions:
             SyntaxError: when there is no args given
-            NameError: when there is no object taht has the name
+            NameError: when there is no object that has the name
             IndexError: when there is no id given
             KeyError: when there is no valid id given
         """
