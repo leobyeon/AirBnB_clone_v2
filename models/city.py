@@ -1,13 +1,21 @@
 #!/usr/bin/python3
 """This is the city class"""
-from models.base_model import BaseModel
+from models.base_model import BaseModel, Base
+from models.state import State
 
 
-class City(BaseModel):
-    """This is the class for City
-    Attributes:
-        state_id: The state id
-        name: input name
+class City(BaseModel, Base):
+    """Class definition for City, inherits from BaseModel and Base
+
+    Class Attributes:
+        Private:
+            tablename: the table that is mapped to the class
+
+        Public:
+            state_id: Foreign key that maps to states.id
+            name: the name of the city that the user puts in
     """
-    state_id = ""
-    name = ""
+
+    __tablename__ = 'cities'
+    name = Column(String(128), nullable=False)
+    state_id = Column(String(60), nullable=False, ForeignKey("states.id"))
