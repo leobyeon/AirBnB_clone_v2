@@ -44,16 +44,17 @@ class HBNBCommand(cmd.Cmd):
             my_list = split(line)
             if not my_list[1]:
                 raise SyntaxError()
-            keyval = my_list[1].split("=")
-            if isinstance(keyval[1], str):
-                keyval[1] = keyval[1].replace("_", " ")
-            obj = eval("{}()".format(my_list[0]))
-            try:
-                setattr(obj, keyval[0], eval(keyval[1]))
-            except (SyntaxError, NameError):
-                setattr(obj, keyval[0], keyval[1])
-            storage.save()
-            print("{}".format(obj.id))
+            for i in range(1, len(my_list)):
+                keyval = my_list[i].split("=")
+                if isinstance(keyval[i], str):
+                    keyval[i] = keyval[i].replace("_", " ")
+                obj = eval("{}()".format(my_list[0]))
+                try:
+                    setattr(obj, keyval[0], eval(keyval[1]))
+                except (SyntaxError, NameError):
+                    setattr(obj, keyval[0], keyval[1])
+                storage.save()
+                print("{}".format(obj.id))
         except SyntaxError:
             print("** class name missing **")
         except NameError:
