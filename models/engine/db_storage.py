@@ -2,6 +2,7 @@
 """ new engine DBStorage """
 import sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker
+from os import getenv
 
 
 class DBStorage:
@@ -10,12 +11,17 @@ class DBStorage:
 
     def __init__(self):
     """ initialize DBStorage """
+        user = getenv("HBNB_MYSQL_USER")
+        pwd = getenv("HBNB_MYSQL_PWD")
+        host = getenv("HBNB_MYSQL_HOST")
+        db = getenv("HBNB_MYSQL_DB")
+        env = getenv("HBNB_ENV")
+
         self.__engine = create_engine(
                 "mysql+mysqldb://{}:{}@{}/{}".format(
-                    HBNB_MYSQL_USER, HBNB_MYSQL_PWD, HBNB_MYSQL_HOST, HBNB_MYSQL_DB),\
-                pool_pre_ping=True)
+                    user, pwd, host, db), pool_pre_ping=True)
 
-        if HBNB_ENV == 'test':
+        if env == 'test':
             .drop_all() # can't find examples of using drop_all?
 
     def all(self, cls=None):
