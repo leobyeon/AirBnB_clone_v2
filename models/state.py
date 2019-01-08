@@ -14,8 +14,7 @@ class State(BaseModel, Base):
     """
     __tablename__ = 'states'
     name = Column(String(128), nullable=False)
-
-    cities = relationship("City", passive_deletes=True, back_populates="state")
+    cities = relationship("City", passive_deletes=True, backref="states")
 
     @property
     def cities(self):

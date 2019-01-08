@@ -40,8 +40,7 @@ class DBStorage:
         """
         filtered_dict = {}
         if cls is None:
-            for instance in self.__session.query(
-                    User, State, City, Amenity, Place, Review).all():
+            for instance in self.__session.query(City).all():
                 filtered_dict["{}.{}".format(
                     instance.name, instance.id)] = instance
 
