@@ -20,4 +20,4 @@ class User(BaseModel, Base):
     first_name = Column(String(128), nullable=False)
     last_name = Column(String(128), nullable=False)
 
-    places = relationship("Place", passive_deletes=True, back_populates="user")
+    places = relationship("Place", cascade="all,delete", backref="users")
