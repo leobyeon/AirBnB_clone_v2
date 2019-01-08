@@ -17,7 +17,7 @@ class City(BaseModel, Base):
             name: the name of the city that the user puts in
     """
 
-    __tablename__ = 'cities'
+    __tablename__ = "cities"
     name = Column(String(128), nullable=False)
     state_id = Column(String(60), ForeignKey("states.id"), nullable=False)
-    places = relationship("Place", passive_deletes=True, back_populates="cities")
+    places = relationship("Place", cascade="all,delete", backref="cities")
