@@ -1,6 +1,6 @@
 #!/usr/bin/python3
 """ new engine DBStorage """
-import sqlalchemy import create_engine
+from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker, scoped_session
 from os import getenv
 from models.base_model import BaseModel, Base
@@ -33,7 +33,7 @@ class DBStorage:
         all objects depending of the class name
         """
         filtered_dict = {}
-        is cls is None:
+        if cls is None:
             for instance in self.__session.query(
                     User, State, City, Amenity, Place, Review).all():
                 filtered_dict["{}.{}".format(

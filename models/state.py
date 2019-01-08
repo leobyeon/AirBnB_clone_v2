@@ -4,7 +4,7 @@ from models.base_model import BaseModel, Base
 from sqlalchemy.orm import relationship
 from sqlalchemy import Column, String
 import os
-from models.city import City
+import models
 
 
 class State(BaseModel, Base):
@@ -14,12 +14,13 @@ class State(BaseModel, Base):
     """
     __tablename__ = 'states'
     name = Column(String(128), nullable=False)
-    cities = relationship("City", back_populates="states")
+
+    cities = relationship("City", passive_deletes=True, back_populates="state")
 
     @property
     def cities(self):
         city_instances = []
-        for cls_name_id, cls_instance in FileStorage.__objects.items():
+        for cls_name_id, cls_instance in models.storage.all().items():
             class_name_id_list = cls_name_id.split('.')
             if class_name_id_list[0] == "State"\
                     and class_name_id_list[1] == City.state_id:
