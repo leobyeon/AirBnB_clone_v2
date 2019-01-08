@@ -43,12 +43,12 @@ class DBStorage:
             for table in [City, State, User]:
                 for instance in self.__session.query(table).all():
                     filtered_dict["{}.{}".format(
-                        instance.name, instance.id)] = instance
+                       table, instance.id)] = instance
 
         else:
             for instance in self.__session.query(cls).all():
                 filtered_dict["{}.{}".format(
-                    instance.name, instance.id)] = instance
+                    cls.__name__, instance.id)] = instance
 
         return filtered_dict
 
