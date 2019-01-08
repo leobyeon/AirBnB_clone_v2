@@ -53,8 +53,8 @@ class HBNBCommand(cmd.Cmd):
                     setattr(obj, keyval[0], eval(keyval[1]))
                 except (SyntaxError, NameError):
                     setattr(obj, keyval[0], keyval[1])
-                storage.new(obj)
-                storage.save()
+            storage.new(obj)
+            storage.save()
             print("{}".format(obj.id))
         except SyntaxError:
             print("** class name missing **")
