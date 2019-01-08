@@ -1,9 +1,9 @@
 #!/usr/bin/python3
 """This is the user class"""
-from models.base_model import BaseModel
-from model_state import Base
+from models.base_model import BaseModel, Base
 from sqlalchemy import Column, Integer, String
 from sqlalchemy.orm import relationship
+
 
 class User(BaseModel, Base):
     """This is the class for user
@@ -20,4 +20,4 @@ class User(BaseModel, Base):
     first_name = Column(String(128), nullable=False)
     last_name = Column(String(128), nullable=False)
 
-    places = relationship("Place", cascade="all, delete", passive_deletes=True, back_populates="user")
+    places = relationship("Place", passive_deletes=True, back_populates="user")
