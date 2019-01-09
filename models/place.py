@@ -2,6 +2,10 @@
 """This is the place class"""
 from models.base_model import BaseModel, Base
 from sqlalchemy import Column, String, Integer, ForeignKey, Float
+from sqlalchemy.orm import relationship
+import models
+from os import getenv
+
 
 class Place(BaseModel, Base):
     """This is the class for Place
@@ -19,7 +23,6 @@ class Place(BaseModel, Base):
         amenity_ids: list of Amenity ids
     """
     __tablename__ = "places"
-
     city_id = Column(String(60), ForeignKey("cities.id"), nullable=False)
     user_id = Column(String(60), ForeignKey("users.id"), nullable=False)
     name = Column(String(128), nullable=False)
@@ -31,3 +34,22 @@ class Place(BaseModel, Base):
     latitude = Column(Float, nullable=True)
     longitude = Column(Float, nullable=True)
     amenity_ids = []
+
+    if getenv("HBNB_TYPE_STORAGE") == 'db':
+        reviews = relationship("Review", cascade="delete", backref="place")
+    else:
+        reviews = ""
+
+    @property
+    def reviews(self):
+        """ Getter attribute 'reviews' that returns a list of Review
+            instances with place_id equal to Place.id
+        """
+        rev_objects = models.storage.all(eval("Review"))
+        place_objects = models.storage.all(eval("Place"))
+        rev_list = []
+        for name_id, value in rev_objects.items():
+            for pls_name_id in place_objects.items():
+                if value.state_id == pls_name_id.split('.')[1]:
+                    rev_list.append(value)
+        return rev_list
