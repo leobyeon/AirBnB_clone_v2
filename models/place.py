@@ -22,7 +22,6 @@ class Place(BaseModel, Base):
         amenity_ids: list of Amenity ids
     """
     __tablename__ = "places"
-
     city_id = Column(String(60), ForeignKey("cities.id"), nullable=False)
     user_id = Column(String(60), ForeignKey("users.id"), nullable=False)
     name = Column(String(128), nullable=False)
@@ -37,7 +36,7 @@ class Place(BaseModel, Base):
     reviews = relationship("Review", cascade="delete", backref="place")
 
     @property
-    reviews(self):
+    def reviews(self):
         """ Getter attribute 'reviews' that returns a list of Review
             instances with place_id equal to Place.id
         """
