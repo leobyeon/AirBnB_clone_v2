@@ -34,7 +34,6 @@ class Place(BaseModel, Base):
         amenity_ids: list of Amenity ids
     """
     __tablename__ = "places"
-
     metadata = Base.metadata
 
     if os.getenv("HBNB_TYPE_STORAGE") == 'db':
