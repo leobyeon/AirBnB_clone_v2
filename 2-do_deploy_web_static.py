@@ -1,14 +1,14 @@
 #!/usr/bin/python3
 """ distributes an archive to web servers """
 from fabric.api import *
-import os.path
+from os.path import isfile
 env.hosts = ['35.243.251.251', '34.73.23.24']
 
 
 def do_deploy(archive_path):
     """ deploys the archive """
 
-    if not os.path.isfile(archive_path):
+    if not isfile(archive_path):
         return False
     try:
         filename = archive_path.split("/")[1]
