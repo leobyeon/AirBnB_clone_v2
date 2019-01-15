@@ -3,8 +3,16 @@
 from fabric.api import *
 import os.path
 from datetime import datetime
-from os.path import isfile
+from os.path import isfile, exists
 env.hosts = ['35.243.251.251', '34.73.23.24']
+
+
+def deploy():
+    """ create and distribute """
+    archive_path = do_pack()
+    if archive_path is None:
+        return False
+    return do_deploy(archive_path)
 
 
 def do_pack():
@@ -16,7 +24,7 @@ def do_pack():
     local("tar -cvzf {} web_static".format(filename))
     local("mv {} versions".format(filename))
 
-    thepath = local("readlink -f {}".format(filename))
+    thepath = "versions/{}".format(filename)
     return thepath
 
 
@@ -39,15 +47,7 @@ def do_deploy(archive_path):
         run("rm -rf {}current".format(datapath))
         run("ln -s {}releases/{}/ {}current".format(
             datapath, no_ext, datapath))
+        print("New version deployed!")
         return True
     except:
         return False
-
-
-def deploy():
-    """ create and distribute """
-    archive_path = do_pack()
-    if not archive_path:
-        return False
-    result = do_deploy(archive_path)
-    return result
