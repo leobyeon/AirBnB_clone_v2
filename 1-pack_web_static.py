@@ -14,8 +14,7 @@ def do_pack():
 
     local("mkdir -p versions")
     process = local("tar -cvzf {} web_static".format(filename))
+    
+    thepath = local("readlink -f {}".format(filename))
 
-    if process.succeeded:
-        return filename
-    else:
-        return None
+    return thepath
