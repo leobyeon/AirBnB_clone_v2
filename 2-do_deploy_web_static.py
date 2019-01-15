@@ -15,13 +15,15 @@ def do_deploy(archive_path):
         no_ext = filename.split(".")[0]
         datapath = "/data/web_static/"
         run("mkdir -p {}releases/{}/".format(datapath, no_ext))
-        run("tar -xzf /tmp/{} -C {}releases/{}/".format(filename, datapath, no_ext))
+        run("tar -xzf /tmp/{} -C {}releases/{}/".format(
+            filename, datapath, no_ext))
         run("rm /tmp/{}".format(filename))
         run("mv {}releases/{}/web_static/* {}releases/{}".format(
             datapath, no_ext, datapath, no_ext))
         run("rm -rf {}releases/{}/web_static".format(datapath, no_ext))
         run("rm -rf {}current".format(datapath))
-        run("ln -s {}releases/{}/ {}current".format(datapath, no_ext, datapath))
+        run("ln -s {}releases/{}/ {}current".format(
+            datapath, no_ext, datapath))
         return True
     except:
         return False
