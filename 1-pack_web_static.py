@@ -13,8 +13,9 @@ def do_pack():
     filename = "web_static_{}.tgz".format(thetime)
 
     local("mkdir -p versions")
-    process = local("tar -cvzf {} web_static".format(filename))
-    
+    local("tar -cvzf {} web_static".format(filename))
+    local("mv {} versions".format(filename))
+
     thepath = local("readlink -f {}".format(filename))
 
     return thepath
