@@ -54,5 +54,5 @@ Ex:
 `City.show(my_city_id)`
 
 #### Authors
-Leo Byeon
-Hemant Heer
+* Leo Byeon
+* Hemant Heer
