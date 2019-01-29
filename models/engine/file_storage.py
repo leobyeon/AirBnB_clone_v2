@@ -71,7 +71,6 @@ class FileStorage:
         """
         Deletes obj if it exists within the private class "objects" attribute
 
-
         Args:
             obj: an instance of a particular class
         """
@@ -82,3 +81,9 @@ class FileStorage:
             if obj is value:
                 del self.__objects[key]
                 break
+
+    def close(self):
+        """
+        call reload() method for deserializing the JSON file to objects
+        """
+        self.reload()

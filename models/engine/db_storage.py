@@ -46,7 +46,7 @@ class DBStorage:
                        table, instance.id)] = instance
 
         else:
-            for instance in self.__session.query(cls).all():
+            for instance in self.__session.query(eval(cls)).all():
                 filtered_dict["{}.{}".format(
                     cls.__name__, instance.id)] = instance
 
@@ -79,4 +79,9 @@ class DBStorage:
         session_factory = sessionmaker(bind=self.__engine,
                                        expire_on_commit=False)
         Session = scoped_session(session_factory)
-        self.__session = Session()
+
+    def close(self):
+        """
+        call remove() method on the private session
+        """
+        self.__session.remove()
