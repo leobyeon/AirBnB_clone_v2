@@ -48,7 +48,7 @@ class DBStorage:
         else:
             for instance in self.__session.query(eval(cls)).all():
                 filtered_dict["{}.{}".format(
-                    cls.__name__, instance.id)] = instance
+                    eval(cls).__name__, instance.id)] = instance
 
         return filtered_dict
 
@@ -84,4 +84,4 @@ class DBStorage:
         """
         call remove() method on the private session
         """
-        self.__session.remove()
+        self.__session.close()
