@@ -28,9 +28,6 @@ class DBStorage:
             "mysql+mysqldb://{}:{}@{}/{}".format(
                 user, pwd, host, db), pool_pre_ping=True)
 
-        Session = sessionmaker(bind=self.__engine)
-        self.__session = Session()
-
         if env == 'test':
             Base.metadata.drop_all(bind=self.__engine)
 
@@ -71,6 +68,7 @@ class DBStorage:
         """
         if obj is not None:
             self.__session.delete(obj)
+            self.save()
 
     def reload(self):
         """ recreates a session
@@ -78,10 +76,10 @@ class DBStorage:
         Base.metadata.create_all(self.__engine)
         session_factory = sessionmaker(bind=self.__engine,
                                        expire_on_commit=False)
-        Session = scoped_session(session_factory)
+        self.__session = scoped_session(session_factory)
 
     def close(self):
         """
         call remove() method on the private session
         """
-        self.__session.close()
+        self.__session.remove()

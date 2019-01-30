@@ -29,7 +29,6 @@ class FileStorage:
         Return:
             returns a dictionary of either filtered or unfiltered objects
         """
-
         if cls is not None:
             filtered_dict = {}
             for cls_name_id, cls_instance in self.__objects.items():
@@ -74,7 +73,6 @@ class FileStorage:
         Args:
             obj: an instance of a particular class
         """
-
         if obj is None:
             return
         for key, value in self.__objects.items():
