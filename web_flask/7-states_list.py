@@ -10,6 +10,7 @@ def close_sesh(param):
     """ close current session """
     storage.close()
 
+
 @app.route('/states_list', strict_slashes=False)
 def display_states():
     """ display an HTML page """
