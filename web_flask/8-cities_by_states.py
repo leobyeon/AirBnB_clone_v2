@@ -14,14 +14,8 @@ def close_sesh(param):
 @app.route('/cities_by_states', strict_slashes=False)
 def display_states():
     """ display an HTML page """
-    states = []
-    cities = []
-    state_data = storage.all("State")
-    for key, val in state_data.items():
-        states.append(val)
-    city_data = storage.all("City")
-    for key, val in city_data.items():
-        cities.append(val)
+    states = storage.all("State").values()
+    cities = storage.all("City").values()
     return render_template(
             '8-cities_by_states.html', states=states, cities=cities)
 

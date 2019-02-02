@@ -11,19 +11,19 @@ def close_sesh(param):
     storage.close()
 
 
+@app.route('/states/<id>', strict_slashes=False)
 @app.route('/states', strict_slashes=False)
-def display_states():
-    """ display an HTML page """
-    states = []
-    cities = []
-    state_data = storage.all("State")
-    for key, val in state_data.items():
-        states.append(val)
-    city_data = storage.all("City")
-    for key, val in city_data.items():
-        cities.append(val)
-    return render_template(
-            '9-states.html', states=states, cities=cities)
+def display_states(id=None):
+    """ display an HTML page if no parameter """
+    states = storage.all("State").values()
+    if id:
+        state = None
+        for v in states:
+            if v.id == id:
+                state = v
+        return render_template('9-states.html', state=state)
+    return render_template('7-states_list.html', states=states)
+
 
 if __name__ == "__main__":
     app.run(host='0.0.0.0', port=5000)
