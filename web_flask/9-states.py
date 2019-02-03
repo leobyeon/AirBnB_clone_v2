@@ -18,10 +18,12 @@ def display_states(id=None):
     states = storage.all("State").values()
     if id:
         state = None
+        cities = storage.all("City").values()
         for v in states:
             if v.id == id:
                 state = v
-        return render_template('9-states.html', state=state)
+        return render_template(
+                '9-states.html', id=id, state=state, cities=cities)
     return render_template('7-states_list.html', states=states)
 
 
